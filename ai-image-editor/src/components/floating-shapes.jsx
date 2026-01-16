@@ -1,6 +1,10 @@
+"use client";
 import React from 'react'
 
+import useParallax from "../../hooks/use-parallax";
+
 const FloatingShapes = () => {
+    const scrollY = useParallax();
 
     const shapes = [
     {
@@ -33,7 +37,14 @@ const FloatingShapes = () => {
 
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {shapes.map((shape)=>{
-        return <div className={`absolute ${shape.size} ${shape.position} bg-gradient-to-r ${shape.gradient} rounded-full blur-3xl opacity-20 animate-pulse`} />
+        return (
+        <div key={shape.id}
+        className={`absolute ${shape.size} ${shape.position} bg-gradient-to-r ${shape.gradient} rounded-full blur-3xl opacity-20 animate-pulse`} 
+        style={{
+            transform: `translateY(${scrollY*0.5}px) rotate(${scrollY*0.1 }deg)`,
+        }}
+        />
+    )
     })}</div>
   )
 }
